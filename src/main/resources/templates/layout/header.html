@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:fragment="headerFragment">
+
+  <header class="navbar navbar-expand navbar-dark bg-dark bd-navbar">
+    <a class="navbar-brand" href="#">성웅 Note</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active"><a class="nav-link" href="/">홈</a></li>
+        <li class="nav-item"><a class="nav-link" href="/article/form">글 작성</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">카테고리</a></li>
+      </ul>
+    </div>
+  </header>
+</div>
+</html>

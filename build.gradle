@@ -29,6 +29,11 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.20")
+
+
 }
 
 tasks.named('test') {

@@ -1,0 +1,9 @@
+### Article Regist Request
+POST http://localhost:8080/article/regist
+Content-Type: application/json
+
+
+{
+"title": "제목",
+"content": "내용"
+}
