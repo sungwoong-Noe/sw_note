@@ -1,7 +1,7 @@
 package com.note.swnote.business.article;
 
 import com.note.swnote.business.article.service.ArticleService;
-import com.note.swnote.dto.request.ArticleRequest;
+import com.note.swnote.dto.request.article.ArticleRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

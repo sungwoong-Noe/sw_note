@@ -1,7 +1,4 @@
-
 "use strict";
-
-
 
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
@@ -18,8 +15,21 @@ document.querySelector('#btn_regist').addEventListener('click', () => {
         alert(formData.valid());
     }
 
-    console.log(formData);
-    console.log(editor);
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/article/regist", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            console.log('response', xhr.responseText);
+        } else {
+            console.log('response', xhr.responseText);
+            // throw new Error("Regist Ajax Error");
+        }
+    };
+
+    xhr.send(JSON.stringify(formData));
 });
 
 class FormData {
@@ -41,3 +51,10 @@ class FormData {
         return null;
     }
 }
+
+const viewer = toastui.Editor.factory({
+    el: document.querySelector('#viewer'),
+    viewer: true,
+    height: '500px',
+    initialValue: "content",
+})
