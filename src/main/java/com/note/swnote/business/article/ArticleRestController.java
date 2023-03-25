@@ -15,7 +15,6 @@ public class ArticleRestController {
 
     private final ArticleService articleService;
 
-
     @PostMapping("/article/regist")
     public Long regist(@RequestBody @Valid ArticleRequest request) {
 

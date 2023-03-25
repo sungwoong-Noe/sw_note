@@ -1,5 +1,25 @@
 "use strict";
 
+class FormData {
+
+    constructor() {
+        this.title = document.querySelector('#title').value;
+        this.content = editor.getMarkdown();
+    }
+
+    valid() {
+        if(!this.title) {
+            return "제목을 입력해주세요";
+        }
+
+        if (!this.content) {
+            return "내용을 입력해주세요";
+        }
+
+        return null;
+    }
+}
+
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     previewStyle: 'tab',
@@ -22,6 +42,12 @@ document.querySelector('#btn_regist').addEventListener('click', () => {
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+            const articleSeq = xhr.responseText;
+
+            alert('등록되었습니다.');
+            location.href = `/article/${articleSeq}`;
+
             console.log('response', xhr.responseText);
         } else {
             console.log('response', xhr.responseText);
@@ -32,25 +58,7 @@ document.querySelector('#btn_regist').addEventListener('click', () => {
     xhr.send(JSON.stringify(formData));
 });
 
-class FormData {
 
-    constructor() {
-        this.title = document.querySelector('#title').value;
-        this.content = editor.getMarkdown();
-    }
-
-    valid() {
-        if(!this.title) {
-            return "제목을 입력해주세요";
-        }
-
-        if (!this.content) {
-            return "내용을 입력해주세요";
-        }
-
-        return null;
-    }
-}
 
 const viewer = toastui.Editor.factory({
     el: document.querySelector('#viewer'),

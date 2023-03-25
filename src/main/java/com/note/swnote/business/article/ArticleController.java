@@ -28,14 +28,6 @@ public class ArticleController {
         ArticleResponse response = articleService.getArticle(articleSeq);
 
         model.addAttribute("article", response);
-
-//        try {
-//            String responseJSON = objectMapper.writeValueAsString(response);
-//            model.addAttribute("article", responseJSON);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException("JSON 파싱 에러");
-//        }
-
         return "article/articleView";
     }
 }
