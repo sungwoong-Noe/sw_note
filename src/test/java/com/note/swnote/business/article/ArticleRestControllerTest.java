@@ -12,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.stream.IntStream;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.TEXT_HTML;
@@ -102,4 +107,30 @@ class ArticleRestControllerTest {
                 .andExpect(view().name("error/error_404"))
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("게시글 목록 - 페이징")
+    void test5 () throws Exception {
+        //given
+        IntStream.range(0, 30).forEach(index -> {
+            Article article = Article.builder()
+                    .title("제목" + index)
+                    .content("내용" + index)
+                    .build();
+            articleRepository.save(article);
+        });
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("page", "0");
+        params.add("size", "10");
+
+
+        //expected
+        mockMvc.perform(get("/articles"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("article/articleList"))
+                .andExpect(model().attributeExists("articleList"))
+                .andDo(print());
+    }
+
 }

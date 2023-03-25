@@ -15,7 +15,30 @@
 
   <h1> Article 페이지 </h1>
 
-  <div id="viewer"></div>
+  <div class="row gx-4 gx-lg-5 justify-content-center" style="padding-left: 20px">
+    <div class="col-md-12 col-lg-8 col-xl-7">
+
+      <th:block th:each="article: ${articleList.getContent()}">
+      <!-- Post preview-->
+      <div  class="post-preview">
+        <a th:href="@{/article/{id}(id=${article.getId()})}">
+          <h2 th:text="${article.getTitle()}" class="post-title"></h2>
+        </a>
+        <p class="post-meta">
+          Posted by
+          <a href="#!">Start Bootstrap</a>
+          on September 24, 2023
+        </p>
+      </div>
+      <!-- Divider-->
+      <hr class="my-4" />
+      <!-- Post preview-->
+      </th:block>
+
+      <!-- Pager-->
+      <div th:if="${articleList.hasNext()}" class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">더보기 →</a></div>
+    </div>
+  </div>
 
 </main>
 

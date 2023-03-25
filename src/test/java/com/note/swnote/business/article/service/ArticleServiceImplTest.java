@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -74,5 +77,27 @@ class ArticleServiceImplTest {
         //expected
         assertThatThrownBy(() -> articleService.getArticle(1L))
                 .isInstanceOf(ArticleNotFound.class);
+    }
+
+
+    @Test
+    @DisplayName("게시글 목록 조회")
+    void test4() {
+        //given
+        IntStream.range(0, 10).forEach(index -> {
+            Article article = Article.builder()
+                    .title("제목" + index)
+                    .content("내용" + index)
+                    .build();
+            articleRepository.save(article);
+        });
+
+        //when
+//        List<ArticleResponse> articleList = articleService.getArticleList();
+
+
+        //then
+//        assertThat(10).isEqualTo(articleList.size());
+//        assertThat(articleList.get(1).getTitle()).isEqualTo("제목1");
     }
 }
