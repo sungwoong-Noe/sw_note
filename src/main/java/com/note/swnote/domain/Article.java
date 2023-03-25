@@ -1,6 +1,7 @@
 package com.note.swnote.domain;
 
-import com.note.swnote.dto.request.ArticleRequest;
+import com.note.swnote.dto.request.article.ArticleRequest;
+import com.note.swnote.dto.response.article.ArticleResponse;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,5 +44,15 @@ public class Article {
                 .content(request.getContent())
                 .thumbnail(request.getThumbnail())
                 .build();
+    }
+
+    public ArticleResponse toResponseEntity() {
+
+        return ArticleResponse.builder()
+                .articleSeq(this.id)
+                .title(this.title)
+                .content(this.content)
+                .build();
+
     }
 }

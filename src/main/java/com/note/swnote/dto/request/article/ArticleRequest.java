@@ -1,4 +1,4 @@
-package com.note.swnote.dto.request;
+package com.note.swnote.dto.request.article;
 
 import com.note.swnote.domain.Article;
 import lombok.Builder;
@@ -27,7 +27,6 @@ public class ArticleRequest {
     }
 
     public Article toEntity(){
-
          return Article.builder()
                 .title(this.title)
                 .content(this.content)
