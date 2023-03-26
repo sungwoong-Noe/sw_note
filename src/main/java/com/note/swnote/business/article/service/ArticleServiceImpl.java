@@ -51,7 +51,5 @@ public class ArticleServiceImpl implements ArticleService{
         Slice<Article> slice = articleRepository.findAll(pageable);
 
         return slice;
-
-
     }
 }

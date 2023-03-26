@@ -32,8 +32,8 @@ public class ArticleRestController {
         return articleId;
     }
 
-    @GetMapping("/article/list")
-    public Slice<Article> getArticleList(@PageableDefault(size = 10, page = 1, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    @GetMapping("/article/next")
+    public Slice<Article> getArticleList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Slice<Article> response = articleService.getArticleList(pageable);
 

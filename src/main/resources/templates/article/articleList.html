@@ -31,20 +31,100 @@
         </p>
       </div>
       <!-- Divider-->
-      <hr class="my-4" />
+      <hr class="my-4 br" />
       <!-- Post preview-->
       </th:block>
 
       <!-- Pager-->
-      <div th:if="${articleList.hasNext()}" class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">더보기 →</a></div>
+      <div th:if="${articleList.hasNext()}" id="btn_moreArticle" class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">더보기 →</a></div>
     </div>
   </div>
+
+
+<!--  <div th:text="${articleList.nextPageable().getPageNumber()}"></div>-->
 
 </main>
 
 <th:block layout:fragment="script">
   <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
   <script src="/js/editor/toast_viewer.js"></script>
+  <script src="/js/article/articleList.js"></script>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    const currentPageable = /*[[${articleList}]]*/;
+
+    let pageable =  new Pageable(currentPageable);
+
+    const nextPage = () => {
+
+      if(pageable.last === true) return false;
+
+      const slice = /*[[${articleList.nextPageable()}]]*/;
+
+      const xhr = new XMLHttpRequest();
+
+      xhr.open("GET", `/article/next?page=${pageable.nextPage()}`, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+
+
+          // const nextContent = JSON.parse(xhr.content)
+
+          const nextPage = JSON.parse(xhr.responseText);
+
+          const nextContent = nextPage.content;
+
+          let $nextContent = '';
+
+          nextContent.forEach(content => {
+
+            $nextContent += `<div  class="post-preview">
+                                <a href="/article/${content.id}">
+                                  <h2 class="post-title">${content.title}</h2>
+                                </a>
+                                <p class="post-meta">
+                                  Posted by
+                                  <a href="#!">Start Bootstrap</a>
+                                  on September 24, 2023
+                                </p>
+                              </div>
+
+                              <!-- Divider-->
+                              <hr class="my-4 br" />`;
+
+          });
+
+          const lastArticleElement = Array.from(document.querySelectorAll('.br')).at(-1);
+
+          lastArticleElement.insertAdjacentHTML("afterend",$nextContent);
+
+          pageable.update(nextPage);
+
+
+          pageable.addButtonCheck();
+
+          console.log('response', nextPage);
+          console.log('next', nextPage.content);
+
+        } else {
+          console.error("getNextPage Error!");
+          // console.log('response', xhr.responseText);
+        }
+      };
+
+      xhr.send();
+    }
+    /*]]>*/[]
+
+
+    document.querySelector('#btn_moreArticle').addEventListener("click", nextPage);
+
+
+
+  </script>
 </th:block>
+
 
 </html>
