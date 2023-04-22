@@ -4,18 +4,22 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!--config-->
-<th:block th:replace="layout/config :: configFragment"></th:block>
 
+
+
+<head>
+  <th:block th:replace="~{layout/config :: configFragment}"></th:block>
+</head>
 
 <body>
 
-<th:block th:replace="layout/header :: headerFragment"></th:block>
+<th:block th:replace="~{layout/header :: headerFragment}"></th:block>
 
 <div class="container-fluid">
   <div class="row flex-nowrap">
 
 <!--left-->
-  <th:block th:replace="layout/left :: leftFragment"></th:block>
+  <th:block th:replace="~{layout/left :: leftFragment}"></th:block>
 
 <!--header-->
 
@@ -27,7 +31,7 @@
 
 
 <!--footer-->
-<th:block th:replace="layout/footer :: footerFragment"></th:block>
+<th:block th:replace="~{layout/footer :: footerFragment}"></th:block>
 </div>
 </body>
 </html>

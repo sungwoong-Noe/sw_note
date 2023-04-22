@@ -2,13 +2,12 @@ package com.note.swnote.domain;
 
 import com.note.swnote.dto.request.article.ArticleRequest;
 import com.note.swnote.dto.response.article.ArticleResponse;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter

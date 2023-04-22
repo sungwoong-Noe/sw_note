@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.InstanceOfAssertFactories.INTEGER;
 
 
 @SpringBootTest
@@ -43,10 +44,12 @@ class ArticleServiceImplTest {
                 .build();
 
         //when
+        long prevCount = articleRepository.count();
         Long articleId = articleService.registArticle(request);
+        long afterCount = articleRepository.count();
 
         //then
-        assertThat(1L).isEqualTo(articleId);
+        assertThat(prevCount + 1).isEqualTo(afterCount);
     }
 
     @Test

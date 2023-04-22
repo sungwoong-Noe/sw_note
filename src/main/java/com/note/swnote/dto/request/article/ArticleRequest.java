@@ -1,11 +1,11 @@
 package com.note.swnote.dto.request.article;
 
 import com.note.swnote.domain.Article;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
 
 @Getter @Setter
 public class ArticleRequest {

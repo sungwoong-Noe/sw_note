@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
+    id 'org.springframework.boot' version '3.0.5'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.note'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -31,8 +31,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
-    implementation("org.xhtmlrenderer:flying-saucer-pdf:9.1.20")
-
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.security:spring-security-test'
 
 }
 

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.note.swnote.business.article.service.ArticleService;
 import com.note.swnote.domain.Article;
-import com.note.swnote.dto.response.article.ArticlePagingResponse;
 import com.note.swnote.dto.response.article.ArticleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,10 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final ObjectMapper objectMapper;
 
 
-    @GetMapping("/articles")
+    @GetMapping(value= {"/", "/articles" })
     public String articles(@PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
 
 
