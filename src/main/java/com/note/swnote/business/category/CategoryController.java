@@ -28,6 +28,8 @@ public class CategoryController {
     }
 
 
+
+
     @GetMapping("/categories/child/{parentId}")
     public List<ChildResponse> getChildList(@PathVariable Long parentId) {
 
