@@ -1,6 +1,6 @@
-package com.note.swnote.exception;
+package com.note.swnote.exception.article;
 
-public class ArticleNotFound extends BlogException{
+public class ArticleNotFound extends BlogException {
 
     private static final String MESSAGE = "존재하지 않는 글입니다.";
 

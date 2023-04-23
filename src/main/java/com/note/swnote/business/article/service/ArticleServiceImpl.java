@@ -4,7 +4,7 @@ import com.note.swnote.business.article.repository.ArticleRepository;
 import com.note.swnote.domain.Article;
 import com.note.swnote.dto.request.article.ArticleRequest;
 import com.note.swnote.dto.response.article.ArticleResponse;
-import com.note.swnote.exception.ArticleNotFound;
+import com.note.swnote.exception.article.ArticleNotFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;

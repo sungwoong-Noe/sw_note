@@ -1,8 +1,12 @@
 package com.note.swnote.exception.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.note.swnote.dto.response.ErrorResponse;
-import com.note.swnote.exception.BlogException;
+import com.note.swnote.exception.article.BlogException;
+import com.note.swnote.exception.cateogry.CategoryException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -15,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionController {
+
+    private final ObjectMapper mapper;
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -36,6 +43,7 @@ public class ExceptionController {
 
 
     @ExceptionHandler(BlogException.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
     public String blogException(BlogException e, Model model) {
 
         int statusCode = e.statusCode();
@@ -50,5 +58,21 @@ public class ExceptionController {
 
         model.addAttribute("errorResponse", response);
         return "error/error_404";
+    }
+
+    @ResponseBody
+    @ExceptionHandler(CategoryException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String categoryException(CategoryException e) throws JsonProcessingException {
+        int statusCode = e.statusCode();
+
+        ErrorResponse response = ErrorResponse.builder()
+                .code(String.valueOf(statusCode))
+                .message(e.getMessage())
+                .validation(e.getValidation())
+                .build();
+
+
+        return mapper.writeValueAsString(response);
     }
 }

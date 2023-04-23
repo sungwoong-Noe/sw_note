@@ -1,4 +1,4 @@
-package com.note.swnote.exception;
+package com.note.swnote.exception.article;
 
 import lombok.Getter;
 
