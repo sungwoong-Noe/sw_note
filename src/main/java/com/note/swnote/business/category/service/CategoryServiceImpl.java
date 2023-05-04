@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public void regist(CategoryRequest request) {
+    public ParentResponse regist(CategoryRequest request) {
 
         Category category = request.toEntity();
 
@@ -32,7 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
             category.setParentCategory(parent);
         }
 
-        categoryRepository.save(category);
+        Category parent = categoryRepository.save(category);
+
+        return parent.toParentResponse();
     }
 
     @Override

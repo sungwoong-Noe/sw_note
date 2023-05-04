@@ -17,6 +17,7 @@
     <div class="col-md-12 col-lg-8 col-xl-7">
 
       <div class="accordion" id="accordionExample">
+
       <th:block th:each="parent : ${parentCategories}">
         <div class="accordion-item">
           <h2 class="accordion-header" th:id="'heading' + ${parent.getId()}">
@@ -47,19 +48,33 @@
 
                 <tr>
                   <td>
-                    <button type="button" class="btn btn-primary btn-sm">+</button>
+<!--                    <input type="text" id="child_category_name" class="i" placeholder="카테고리명">-->
+<!--                    <button type="button" class="btn btn-primary btn-sm">+</button>-->
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="카테고리명" aria-label="Recipient's username" aria-describedby="button-addon2">
+                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">+</button>
+                    </div>
                   </td>
                 </tr>
                 </tbody>
               </table>
-<!--              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.-->
             </div>
           </div>
         </div>
       </th:block>
-      </div>
 
+
+      </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="parent_category_name" placeholder="카테고리명" aria-label="카테고리명" aria-describedby="btn_parent_regist">
+        <button class="btn btn-outline-secondary" type="button" id="btn_parent_regist">+</button>
+    </div>
     </div>
   </div>
 
 </main>
+
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/category/category.js}" ></script>
+</th:block>

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CategoryService {
 
-    void regist(CategoryRequest request);
+    ParentResponse regist(CategoryRequest request);
     List<ParentResponse> parentList();
 
     List<ChildResponse> childList(Long parentId);

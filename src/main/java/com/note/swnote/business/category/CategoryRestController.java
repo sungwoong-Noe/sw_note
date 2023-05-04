@@ -1,6 +1,8 @@
 package com.note.swnote.business.category;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.note.swnote.business.category.service.CategoryService;
 import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
@@ -15,11 +17,13 @@ import java.util.List;
 public class CategoryRestController {
 
     private final CategoryService categoryService;
+    private final ObjectMapper objectMapper;
 
 
     @PostMapping("/category")
-    public void regist(@RequestBody CategoryRequest request) {
-        categoryService.regist(request);
+    public String regist(@RequestBody CategoryRequest request) throws JsonProcessingException {
+        ParentResponse parent = categoryService.regist(request);
+        return  objectMapper.writeValueAsString(parent);
     }
 
     @GetMapping("/categories/parent")

@@ -47,17 +47,25 @@ public class Category {
 
 
     public ParentResponse toParentResponse() {
-        return ParentResponse.builder()
+
+
+        ParentResponse.ParentResponseBuilder parentResponseBuilder = ParentResponse.builder()
                 .id(this.id)
-                .categoryName(this.categoryName)
-                .childList(this.childCategories.stream()
-                        .map(child -> ChildResponse.builder()
-                        .id(child.getId())
-                        .categoryName(child.getCategoryName())
-                        .build())
-                        .collect(Collectors.toList())
-                )
-                .build();
+                .categoryName(this.categoryName);
+
+        if (this.childCategories.size() > 0) {
+            return parentResponseBuilder.childList(
+                    this.childCategories.stream()
+                            .map(child -> ChildResponse.builder()
+                                    .id(child.getId())
+                                    .categoryName(child.getCategoryName())
+                                    .build())
+                            .collect(Collectors.toList()
+                            ))
+                    .build();
+        } else {
+            return parentResponseBuilder.build();
+        }
     }
 
 
