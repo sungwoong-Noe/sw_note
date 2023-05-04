@@ -36,7 +36,6 @@
                 </tr>
                 </thead>
                 <tbody>
-
                 <th:block th:each="child: ${parent.getChildList()}">
                 <tr>
                   <td th:text="${child.getCategoryName()}"></td>
@@ -51,8 +50,8 @@
 <!--                    <input type="text" id="child_category_name" class="i" placeholder="카테고리명">-->
 <!--                    <button type="button" class="btn btn-primary btn-sm">+</button>-->
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="카테고리명" aria-label="Recipient's username" aria-describedby="button-addon2">
-                      <button class="btn btn-outline-secondary" type="button" id="button-addon2">+</button>
+                      <input type="text" class="form-control" placeholder="카테고리명" aria-label="Recipient's username" th:aria-describedby="'btn_childCategoryRegist' + ${parent.getId()}">
+                      <button class="btn btn-outline-secondary" type="button" th:id="'btn_childCategoryRegist' + ${parent.getId()}" th:onclick="childCategoryRegist([[${parent.id}]], this)">+</button>
                     </div>
                   </td>
                 </tr>
