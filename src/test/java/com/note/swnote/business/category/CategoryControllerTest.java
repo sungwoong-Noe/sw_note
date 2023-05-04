@@ -64,15 +64,16 @@ class CategoryControllerTest {
     @DisplayName("카테고리 등록 - 자식 카테고리")
     void test2() throws Exception {
         //given
-        CategoryRequest parent = CategoryRequest.builder()
-                .categoryName("부모 카테고리")
+        Category parent = Category.builder()
+                .categoryName("부모")
                 .build();
 
-        categoryService.regist(parent);
+
+        categoryRepository.save(parent);
 
         CategoryRequest request = CategoryRequest.builder()
                 .categoryName("자식 카테고리")
-                .parentId(1L)
+                .parentId(parent.getId())
                 .build();
 
 

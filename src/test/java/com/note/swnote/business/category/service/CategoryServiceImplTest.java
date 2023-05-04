@@ -6,6 +6,7 @@ import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
 import com.note.swnote.dto.response.category.ParentResponse;
 import com.note.swnote.exception.cateogry.ParentNotFound;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ class CategoryServiceImplTest {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @BeforeEach
+    void setup() {
+        categoryRepository.deleteAll();
+    }
+
 
     @Test
     @DisplayName("카테고리 등록 - 대분류")
@@ -49,25 +55,25 @@ class CategoryServiceImplTest {
     @DisplayName("카테고리 등록 - 소분류")
     void test2() {
         //given
-        CategoryRequest parent = CategoryRequest.builder()
-                .categoryName("부모 카테고리")
+        Category parent = Category.builder()
+                .categoryName("부모")
+                .build();
+        categoryRepository.save(parent);
+
+        CategoryRequest child = CategoryRequest.builder()
+                .categoryName("자식 카테고리")
+                .parentId(parent.getId())
                 .build();
 
-        CategoryRequest.CategoryRequestBuilder child = CategoryRequest.builder()
-                .categoryName("자식 카테고리");
-
         //when
-        categoryService.regist(parent);
-        CategoryRequest childRequest = child.parentId(1L).build();
-
-        categoryService.regist(childRequest);
+        categoryService.regist(child);
 
 
         List<Category> all = categoryRepository.findAll();
 
         //then
         assertThat(all.size()).isEqualTo(2L);
-        assertThat(all.get(1).getParent().getCategoryName()).isEqualTo("부모 카테고리");
+        assertThat(all.get(1).getParent().getCategoryName()).isEqualTo("부모");
     }
 
     @Test
@@ -150,14 +156,14 @@ class CategoryServiceImplTest {
         categoryRepository.save(parent);
 
         CategoryRequest child1 = CategoryRequest.builder()
-                .parentId(1L)
+                .parentId(parent.getId())
                 .categoryName("child1")
                 .build();
 
         categoryService.regist(child1);
 
         CategoryRequest child2 = CategoryRequest.builder()
-                .parentId(1L)
+                .parentId(parent.getId())
                 .categoryName("child2")
                 .build();
 

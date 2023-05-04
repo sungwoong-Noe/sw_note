@@ -75,7 +75,7 @@ class ArticleRestControllerTest {
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andExpect(content().string(String.valueOf(25L)));
+                .andExpect(content().string(String.valueOf(1L)));
     }
 
     @Test
