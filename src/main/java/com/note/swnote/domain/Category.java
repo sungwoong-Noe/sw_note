@@ -7,6 +7,8 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Getter
@@ -48,8 +50,16 @@ public class Category {
         return ParentResponse.builder()
                 .id(this.id)
                 .categoryName(this.categoryName)
+                .childList(this.childCategories.stream()
+                        .map(child -> ChildResponse.builder()
+                        .id(child.getId())
+                        .categoryName(child.getCategoryName())
+                        .build())
+                        .collect(Collectors.toList())
+                )
                 .build();
     }
+
 
     public ChildResponse toChildResponse() {
         return ChildResponse.builder()
@@ -58,6 +68,4 @@ public class Category {
                 .parent(this.parent.toParentResponse())
                 .build();
     }
-
-
 }

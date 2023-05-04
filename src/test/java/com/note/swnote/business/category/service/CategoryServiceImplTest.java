@@ -82,6 +82,7 @@ class CategoryServiceImplTest {
             categoryService.regist(request);
         });
 
+
         //when
         List<ParentResponse> parentResponses = categoryService.parentList();
 
@@ -134,6 +135,42 @@ class CategoryServiceImplTest {
         //then
         assertThat(5L).isEqualTo(childList.size());
         assertThat(childList.get(0).getParent().getCategoryName()).isEqualTo(parent.getCategoryName());
+
+
+    }
+
+    @Test
+    @DisplayName("카테고리 목록 - 자식 포함")
+    void test6() {
+        //given
+        Category parent = Category.builder()
+                .categoryName("parent")
+                .build();
+
+        categoryRepository.save(parent);
+
+        CategoryRequest child1 = CategoryRequest.builder()
+                .parentId(1L)
+                .categoryName("child1")
+                .build();
+
+        categoryService.regist(child1);
+
+        CategoryRequest child2 = CategoryRequest.builder()
+                .parentId(1L)
+                .categoryName("child2")
+                .build();
+
+        categoryService.regist(child2);
+
+
+
+        //when
+        List<ParentResponse> parents = categoryService.parentList();
+
+
+        //then
+        assertThat(parents.get(0).getChildList().size()).isEqualTo(2L);
 
 
     }

@@ -22,4 +22,9 @@ INSERT INTO article (title, content) VALUES ("title21", "content");
 INSERT INTO article (title, content) VALUES ("title22", "content");
 INSERT INTO article (title, content) VALUES ("title23", "content");
 INSERT INTO article (title, content) VALUES ("title24", "content");
+INSERT INTO category (category_name) VAlUES ("spring");
+INSERT INTO category (category_name, parent_id) VALUES("boot", 1);
+INSERT INTO category (category_name, parent_id) VALUES("legacy", 1);
 
+INSERT INTO category (category_name) VAlUES ("mysql");
+INSERT INTO category (category_name) VAlUES ("javascript");

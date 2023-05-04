@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout.html}">
+<head>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset="UTF-8">
+  <title>Category Regist</title>
+</head>
+
+<main class="col-9 py-md-3 pl-md-5 bd-content" role="main" layout:fragment="content">
+
+  <h1> Category </h1>
+
+  <div class="row gx-4 gx-lg-5 justify-content-center" style="padding-left: 20px">
+    <div class="col-md-12 col-lg-8 col-xl-7">
+
+      <div class="accordion" id="accordionExample">
+      <th:block th:each="parent : ${parentCategories}">
+        <div class="accordion-item">
+          <h2 class="accordion-header" th:id="'heading' + ${parent.getId()}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse' + ${parent.getId()}" aria-expanded="true" th:aria-controls="'collapse' + ${parent.getId()}">
+              <span th:text="${parent.getCategoryName()}" />
+            </button>
+          </h2>
+          <div th:id="'collapse' + ${parent.getId()}" class="accordion-collapse collapse" th:aria-labelledby="'heading' + ${parent.getId()}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">카테고리명</th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:each="child: ${parent.getChildList()}">
+                <tr>
+                  <td th:text="${child.getCategoryName()}"></td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm">삭제</button>
+                  </td>
+                </tr>
+                </th:block>
+
+                <tr>
+                  <td>
+                    <button type="button" class="btn btn-primary btn-sm">+</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+<!--              <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.-->
+            </div>
+          </div>
+        </div>
+      </th:block>
+      </div>
+
+    </div>
+  </div>
+
+</main>
