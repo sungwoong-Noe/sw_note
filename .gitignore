@@ -92,3 +92,5 @@ target/
 ### yml ###
 *.yml
 
+### sql ###
+*.sql
