@@ -6,25 +6,39 @@
 <th:block th:fragment="leftFragment">
   <aside class="col-3 bd-sidebar">
 
-    <ul class="nav">
-      <li><a>Side 1</a></li>
-      <li><a>Side 2</a></li>
-      <li><a>Side 3</a></li>
-      <li><a>Side 4</a></li>
-      <li><a>Side 5</a></li>
-      <li><a>Side 6</a></li>
-      <li><a>Side 7</a></li>
-      <li><a>Side 8</a></li>
-      <li><a>Side 1</a></li>
-      <li><a>Side 2</a></li>
-      <li><a>Side 3</a></li>
-      <li><a>Side 4</a></li>
-      <li><a>Side 5</a></li>
-      <li><a>Side 6</a></li>
-      <li><a>Side 7</a></li>
-      <li><a>Side 8</a></li>
-    </ul>
+    <div class="flex-shrink-0 p-3" style="width: 280px;">
+      <ul class="list-unstyled ps-0">
 
+        <th:block th:each="parent:${sidebarCategories}">
+          <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" th:data-bs-target="'#sideCategory' + ${parent.getId()}" aria-expanded="false">
+              <span th:text="${parent.getCategoryName()}"></span>
+            </button>
+            <div class="collapse" th:id="'sideCategory' + ${parent.getId()}">
+              <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                <th:block th:each="child:${parent.getChildList()}">
+                  <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded" th:text="${child.getCategoryName()}"></a></li>
+                </th:block>
+              </ul>
+            </div>
+          </li>
+        </th:block>
+        <li class="mb-1">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+            Account
+          </button>
+          <div class="collapse" id="account-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+              <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+
+    </div>
   </aside>
 </th:block>
 </html>

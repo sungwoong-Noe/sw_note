@@ -8,6 +8,7 @@ import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
 import com.note.swnote.dto.response.category.ParentResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,6 @@ public class CategoryRestController {
 
     private final CategoryService categoryService;
     private final ObjectMapper objectMapper;
-
 
     @PostMapping("/category")
     public String regist(@RequestBody CategoryRequest request) throws JsonProcessingException {
