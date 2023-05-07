@@ -18,12 +18,17 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_seq")
     private Long id;
 
     private String categoryName;
 
+    @OneToMany(mappedBy = "category")
+    private List<Article> articles = new ArrayList<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    @JoinColumn(name = "parent_id")
     private Category parent;
 
 

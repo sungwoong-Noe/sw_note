@@ -1,5 +1,42 @@
 "use strict";
 
+document.querySelector('#parentCategory').addEventListener('change', (event) => {
+    console.log('hello');
+    console.log(event.target.value);
+
+    // /categories/child/{parentId}
+
+    const parentCategoryId = event.target.value;
+    const $select_childCategory = document.querySelector('#childCategory');
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === xhr.DONE) {
+            if (xhr.status === 200 || xhr.status === 201) {
+
+                let $childCategoryOptions = '<option value="">==선택==</option>';
+
+                const childCategories = xhr.response;
+                childCategories.forEach(child => {
+                    $childCategoryOptions += `<option value="${child.id}">${child.categoryName}</option>`
+                });
+
+                removeAllChild($select_childCategory);
+
+                $select_childCategory.insertAdjacentHTML("beforeend",$childCategoryOptions);
+
+                console.log(xhr.response);
+            } else {
+                console.error(xhr.responseText);
+            }
+        }
+    }
+    xhr.open('GET', `/categories/child/${parentCategoryId}`, true);
+    xhr.responseType = 'json';
+    xhr.send();
+});
+
 class FormData {
 
     constructor() {
@@ -66,3 +103,10 @@ const viewer = toastui.Editor.factory({
     height: '500px',
     initialValue: "content",
 })
+
+
+function removeAllChild(tag) {
+    while (tag.hasChildNodes()) {
+        tag.removeChild(tag.firstChild);
+    }
+}

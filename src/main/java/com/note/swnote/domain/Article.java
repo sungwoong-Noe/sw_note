@@ -24,9 +24,12 @@ public class Article {
 
     @NotBlank(message = "내용을 입력해주세요.")
     private String content;
-
-//    @NotBlank(message = "썸네일 이미지를 등록해주세요")
     private String thumbnail;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_seq")
+    private Category category;
 
 
     @Builder

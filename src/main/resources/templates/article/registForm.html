@@ -16,6 +16,28 @@
     <main class="col-9 py-md-3 pl-md-5 bd-content" role="main" layout:fragment="content">
         <h1>게시글 작성</h1>
 
+        <div class="row mb-3">
+            <div class="col-md-1">
+                <p>카테고리</p>
+            </div>
+            <div class="col-md-5">
+                <select class="form-select" aria-label="Default select example" id="parentCategory" >
+                    <th:block th:if="${sidebarCategories.size() > 0}">
+                        <option value="" selected>==선택==</option>
+                        <option th:each="parent : ${sidebarCategories}" th:value="${parent.getId()}" th:text="${parent.getCategoryName()}"></option>
+                    </th:block>
+                    <th:block th:if="${sidebarCategories.size()  == 0}">
+                        <option value="">등록된 카테고리가 없습니다.</option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select class="form-select" aria-label="Default select example" id="childCategory">
+                    <option value="">1차 카테고리를 선택해주세요.</option>
+                </select>
+            </div>
+        </div>
+
         <div class="mb-3 row">
             <label for="title" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-10">
@@ -23,14 +45,14 @@
             </div>
         </div>
 
-
         <div id="editor"></div>
 
         <button type="button" id="btn_regist" class="btn btn-primary">게시글 등록</button>
     </main>
 
     <th:block layout:fragment="script">
-        <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
-        <script src="/js/editor/toast_register.js"></script>
+        <script th:src="@{https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js}"></script>
+        <script th:src="@{/js/editor/toast_register.js}"></script>
+<!--        <script th:src="@{/js/article/article_regist.js}"></script>-->
     </th:block>
 </html>
