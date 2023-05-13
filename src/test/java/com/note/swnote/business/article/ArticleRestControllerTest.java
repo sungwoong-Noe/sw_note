@@ -5,6 +5,7 @@ import com.note.swnote.business.article.repository.ArticleRepository;
 import com.note.swnote.business.article.service.ArticleService;
 import com.note.swnote.domain.Article;
 import com.note.swnote.dto.request.article.ArticleRequest;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -69,13 +71,21 @@ class ArticleRestControllerTest {
                 .content("게시글 내용")
                 .build();
 
+        List<Article> prevArticles = articleRepository.findAll();
 
-        //expected
+
+
+
+        //when
         mockMvc.perform(post("/article/regist")
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(content().string(String.valueOf(1L)));
+                .andExpect(status().isOk());
+
+
+        //then
+        List<Article> nextArticles = articleRepository.findAll();
+        Assertions.assertThat(prevArticles.size()).isEqualTo(nextArticles.size() - 1);
     }
 
     @Test
