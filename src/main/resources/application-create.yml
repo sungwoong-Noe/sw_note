@@ -1,0 +1,11 @@
+server:
+  port: 8081
+
+spring:
+  config:
+    activate:
+      on-profile: create # 환경이름설정
+
+  jpa:
+    hibernate:
+      ddl-auto: create
