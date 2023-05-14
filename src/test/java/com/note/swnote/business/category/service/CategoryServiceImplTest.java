@@ -160,15 +160,14 @@ class CategoryServiceImplTest {
                 .categoryName("child1")
                 .build();
 
-        categoryService.regist(child1);
+        ParentResponse registerdChild1 = categoryService.regist(child1);
 
         CategoryRequest child2 = CategoryRequest.builder()
                 .parentId(parent.getId())
                 .categoryName("child2")
                 .build();
 
-        categoryService.regist(child2);
-
+        ParentResponse registeredChild2 = categoryService.regist(child2);
 
 
         //when
@@ -177,7 +176,5 @@ class CategoryServiceImplTest {
 
         //then
         assertThat(parents.get(0).getChildList().size()).isEqualTo(2L);
-
-
     }
 }

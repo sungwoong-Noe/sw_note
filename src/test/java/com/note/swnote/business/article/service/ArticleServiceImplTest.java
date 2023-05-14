@@ -10,6 +10,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 import java.util.stream.IntStream;
 
@@ -93,12 +96,16 @@ class ArticleServiceImplTest {
             articleRepository.save(article);
         });
 
+
+        Pageable page = PageRequest.of(0, 10);
+
         //when
-//        List<ArticleResponse> articleList = articleService.getArticleList();
+        Slice<Article> articleList = articleService.getArticleList(page);
+
 
 
         //then
-//        assertThat(10).isEqualTo(articleList.size());
-//        assertThat(articleList.get(1).getTitle()).isEqualTo("제목1");
+        assertThat(10).isEqualTo(articleList.getSize());
+        assertThat(articleList.getContent().get(0).getTitle()).isEqualTo("제목0");
     }
 }
