@@ -8,7 +8,12 @@ import com.note.swnote.exception.article.BlogException;
 import com.note.swnote.exception.cateogry.CategoryException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,6 +21,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.HashMap;
 
 @Slf4j
 @ControllerAdvice
@@ -74,5 +81,17 @@ public class ExceptionController {
 
 
         return mapper.writeValueAsString(response);
+    }
+
+    //    @ResponseBody
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity userNotFound(UsernameNotFoundException e) {
+
+        HashMap<String, String> response = new HashMap<>();
+        response.put("code", "404");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
     }
 }

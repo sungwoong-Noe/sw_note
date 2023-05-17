@@ -23,7 +23,13 @@ spring:
         default-page-size: 10
 #        one-indexed-parameters: true
 
-#  sql:
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+
+
+  #  sql:
 #    init:
 #      mode: always
 #      data-locations: classpath:/articleEx.sql

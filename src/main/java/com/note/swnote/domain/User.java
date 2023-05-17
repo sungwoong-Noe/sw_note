@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    private String userId;
+    private String email;
 
     private String password;
 
