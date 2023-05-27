@@ -42,6 +42,7 @@ class FormData {
     constructor() {
         this.title = document.querySelector('#title').value;
         this.content = editor.getMarkdown();
+        this.categoryId = document.querySelector('#childCategory').value;
     }
 
     valid() {
@@ -51,6 +52,10 @@ class FormData {
 
         if (!this.content) {
             return "내용을 입력해주세요";
+        }
+
+        if (!this.categoryId) {
+            return "카테고리를 선택해주세요";
         }
 
         return null;

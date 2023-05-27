@@ -6,7 +6,7 @@ import com.note.swnote.domain.Category;
 import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
 import com.note.swnote.dto.response.category.ParentResponse;
-import com.note.swnote.exception.cateogry.ParentNotFound;
+import com.note.swnote.exception.cateogry.ParentNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = request.toEntity();
 
         if (request.getParentId() != null) {
-            Category parent = categoryRepository.findById(request.getParentId()).orElseThrow(() -> new ParentNotFound());
+            Category parent = categoryRepository.findById(request.getParentId()).orElseThrow(() -> new ParentNotFoundException());
             category.setParentCategory(parent);
         }
 

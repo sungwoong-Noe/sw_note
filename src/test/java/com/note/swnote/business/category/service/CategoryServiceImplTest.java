@@ -5,7 +5,7 @@ import com.note.swnote.domain.Category;
 import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
 import com.note.swnote.dto.response.category.ParentResponse;
-import com.note.swnote.exception.cateogry.ParentNotFound;
+import com.note.swnote.exception.cateogry.ParentNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -109,7 +109,7 @@ class CategoryServiceImplTest {
 
 
         //expected
-        assertThrows(ParentNotFound.class, () -> categoryService.regist(request));
+        assertThrows(ParentNotFoundException.class, () -> categoryService.regist(request));
     }
 
 

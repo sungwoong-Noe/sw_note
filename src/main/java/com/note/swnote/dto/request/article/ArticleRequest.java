@@ -1,6 +1,7 @@
 package com.note.swnote.dto.request.article;
 
 import com.note.swnote.domain.Article;
+import com.note.swnote.domain.Category;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,20 +18,24 @@ public class ArticleRequest {
     private String content;
 
 
+    private Long categoryId;
+
     private String thumbnail;
 
     @Builder
-    public ArticleRequest(String title, String content, String thumbnail) {
+    public ArticleRequest(String title, String content, String thumbnail, Long categoryId) {
         this.title = title;
         this.content = content;
         this.thumbnail = thumbnail;
+        this.categoryId = categoryId;
     }
 
-    public Article toEntity(){
-         return Article.builder()
+    public Article toEntity(Category category) {
+        return Article.builder()
                 .title(this.title)
                 .content(this.content)
+                .category(category)
                 .build();
     }
-
 }
+

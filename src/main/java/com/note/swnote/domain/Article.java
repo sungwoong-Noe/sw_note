@@ -33,10 +33,12 @@ public class Article {
 
 
     @Builder
-    public Article(String title, String content, String thumbnail) {
+    public Article(String title, String content, String thumbnail, Category category) {
+
         this.title = title;
         this.content = content;
         this.thumbnail = thumbnail;
+        this.category = category;
     }
 
     public static Article newArticle(ArticleRequest request) {

@@ -72,7 +72,6 @@ public class ExceptionController {
                 .validation(e.getValidation())
                 .build();
 
-
         return mapper.writeValueAsString(response);
     }
 }
