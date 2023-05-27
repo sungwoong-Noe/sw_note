@@ -32,7 +32,8 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public ArticleResponse getArticle(Long articleSeq) {
 
-        Article article = articleRepository.findById(articleSeq).orElseThrow(ArticleNotFound::new);
+        Article article = articleRepository.findById(articleSeq)
+                        .orElseThrow(ArticleNotFound::new);
 
         return article.toResponseEntity();
     }

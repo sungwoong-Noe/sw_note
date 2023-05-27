@@ -55,6 +55,7 @@ const parentCategoryRegist = () => {
         }
 
         console.log(parentResponse);
+
         const categoryList = document.querySelector('#accordionExample');
 
         const $parentCategory = `<div class="accordion-item">

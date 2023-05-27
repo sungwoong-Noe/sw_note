@@ -88,13 +88,11 @@ document.querySelector('#btn_regist').addEventListener('click', () => {
             console.log('response', xhr.responseText);
         } else {
             console.log('response', xhr.responseText);
-            // throw new Error("Regist Ajax Error");
         }
     };
 
     xhr.send(JSON.stringify(formData));
 });
-
 
 
 const viewer = toastui.Editor.factory({
