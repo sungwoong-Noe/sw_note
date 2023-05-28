@@ -15,7 +15,6 @@ const categoryRegistRequest = (parentId, categoryName) => {
     xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-
             response = xhr.responseText;
 
         }else {

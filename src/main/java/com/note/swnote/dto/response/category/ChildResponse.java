@@ -9,10 +9,10 @@ public class ChildResponse {
 
     private Long id;
     private String categoryName;
-    private ParentResponse parent;
+    private CategoryResponse parent;
 
     @Builder
-    public ChildResponse(Long id, String categoryName, ParentResponse parent) {
+    public ChildResponse(Long id, String categoryName, CategoryResponse parent) {
         this.id = id;
         this.categoryName = categoryName;
         this.parent = parent;

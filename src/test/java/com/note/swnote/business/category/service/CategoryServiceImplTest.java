@@ -4,7 +4,7 @@ import com.note.swnote.business.category.repository.CategoryRepository;
 import com.note.swnote.domain.Category;
 import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
-import com.note.swnote.dto.response.category.ParentResponse;
+import com.note.swnote.dto.response.category.CategoryResponse;
 import com.note.swnote.exception.cateogry.ParentNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -90,7 +90,7 @@ class CategoryServiceImplTest {
 
 
         //when
-        List<ParentResponse> parentResponses = categoryService.parentList();
+        List<CategoryResponse> parentResponses = categoryService.parentList();
 
 
         //then
@@ -160,18 +160,18 @@ class CategoryServiceImplTest {
                 .categoryName("child1")
                 .build();
 
-        ParentResponse registerdChild1 = categoryService.regist(child1);
+        CategoryResponse registerdChild1 = categoryService.regist(child1);
 
         CategoryRequest child2 = CategoryRequest.builder()
                 .parentId(parent.getId())
                 .categoryName("child2")
                 .build();
 
-        ParentResponse registeredChild2 = categoryService.regist(child2);
+        CategoryResponse registeredChild2 = categoryService.regist(child2);
 
 
         //when
-        List<ParentResponse> parents = categoryService.parentList();
+        List<CategoryResponse> parents = categoryService.parentList();
 
 
         //then

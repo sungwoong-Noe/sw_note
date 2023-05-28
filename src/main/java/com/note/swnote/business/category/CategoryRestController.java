@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.note.swnote.business.category.service.CategoryService;
 import com.note.swnote.dto.request.category.CategoryRequest;
 import com.note.swnote.dto.response.category.ChildResponse;
-import com.note.swnote.dto.response.category.ParentResponse;
+import com.note.swnote.dto.response.category.CategoryResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +21,13 @@ public class CategoryRestController {
 
     @PostMapping("/category")
     public String regist(@RequestBody CategoryRequest request) throws JsonProcessingException {
-        ParentResponse parent = categoryService.regist(request);
-        return  objectMapper.writeValueAsString(parent);
+        CategoryResponse registedCategory = categoryService.regist(request);
+
+        return  objectMapper.writeValueAsString(registedCategory);
     }
 
     @GetMapping("/categories/parent")
-    public List<ParentResponse> getParents() {
+    public List<CategoryResponse> getParents() {
         return categoryService.parentList();
     }
 

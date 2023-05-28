@@ -1,14 +1,13 @@
 package com.note.swnote.domain;
 
 import com.note.swnote.dto.response.category.ChildResponse;
-import com.note.swnote.dto.response.category.ParentResponse;
+import com.note.swnote.dto.response.category.CategoryResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Getter
@@ -51,10 +50,10 @@ public class Category {
     }
 
 
-    public ParentResponse toParentResponse() {
+    public CategoryResponse toParentResponse() {
 
 
-        ParentResponse.ParentResponseBuilder parentResponseBuilder = ParentResponse.builder()
+        CategoryResponse.CategoryResponseBuilder parentResponseBuilder = CategoryResponse.builder()
                 .id(this.id)
                 .categoryName(this.categoryName);
 

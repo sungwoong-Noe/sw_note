@@ -27,9 +27,10 @@ public class ArticleServiceImpl implements ArticleService{
     public Long registArticle(ArticleRequest request) {
 
         Long categoryId = request.getCategoryId();
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException());
-        Article article = request.toEntity(category);
 
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryNotFoundException());
+
+        Article article = request.toEntity(category);
 
         articleRepository.save(article);
 
