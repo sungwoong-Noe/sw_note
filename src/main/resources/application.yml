@@ -29,7 +29,7 @@ spring:
 #      data-locations: classpath:/articleEx.sql
 
   thymeleaf:
-    prefix: classpath:/templates/
+    prefix: classpath:templates/
     suffix: .html
     cache: false
 

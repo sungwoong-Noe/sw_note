@@ -112,6 +112,7 @@ class ArticleServiceImplTest {
     }
 
 
+    // TODO: 2023/05/29 테스트 코드 수정 - ArtocleList DTO 리팩토링으로 인한 테스트 수정
     @Test
     @DisplayName("게시글 목록 조회")
     void test4() {

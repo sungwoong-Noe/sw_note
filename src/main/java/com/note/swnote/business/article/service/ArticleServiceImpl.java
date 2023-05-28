@@ -5,6 +5,7 @@ import com.note.swnote.business.category.repository.CategoryRepository;
 import com.note.swnote.domain.Article;
 import com.note.swnote.domain.Category;
 import com.note.swnote.dto.request.article.ArticleRequest;
+import com.note.swnote.dto.response.article.ArticlePagingResponse;
 import com.note.swnote.dto.response.article.ArticleResponse;
 import com.note.swnote.exception.article.ArticleNotFound;
 import com.note.swnote.exception.cateogry.CategoryNotFoundException;
@@ -48,10 +49,10 @@ public class ArticleServiceImpl implements ArticleService{
 
 
     @Override
-    public Slice<Article> getArticleList(Pageable pageable) {
+    public ArticlePagingResponse getArticleList(Pageable pageable) {
 
         Slice<Article> slice = articleRepository.findAll(pageable);
 
-        return slice;
+        return ArticlePagingResponse.create(slice);
     }
 }

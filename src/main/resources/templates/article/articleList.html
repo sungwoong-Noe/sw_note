@@ -18,10 +18,10 @@
   <div class="row gx-4 gx-lg-5 justify-content-center" style="padding-left: 20px">
     <div class="col-md-12 col-lg-8 col-xl-7">
 
-      <th:block th:each="article: ${articleList.getContent()}">
+      <th:block th:each="article: ${articleList.getArticleResponses()}">
       <!-- Post preview-->
       <div  class="post-preview">
-        <a th:href="@{/article/{id}(id=${article.getId()})}">
+        <a th:href="@{/article/{id}(id=${article.getArticleSeq()})}">
           <h2 th:text="${article.getTitle()}" class="post-title"></h2>
         </a>
         <p class="post-meta">
@@ -36,12 +36,9 @@
       </th:block>
 
       <!-- Pager-->
-      <div th:if="${articleList.hasNext()}" id="btn_moreArticle" class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">더보기 →</a></div>
+      <div th:if="${articleList.isHasNext()}" id="btn_moreArticle" class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">더보기 →</a></div>
     </div>
   </div>
-
-
-<!--  <div th:text="${articleList.nextPageable().getPageNumber()}"></div>-->
 
 </main>
 
@@ -59,7 +56,6 @@
 
       if(pageable.last === true) return false;
 
-      const slice = /*[[${articleList.nextPageable()}]]*/;
 
       const xhr = new XMLHttpRequest();
 
@@ -74,14 +70,15 @@
 
           const nextPage = JSON.parse(xhr.responseText);
 
-          const nextContent = nextPage.content;
+          // const nextContent = nextPage.content;
+          const nextContent = nextPage.articleResponses;
 
           let $nextContent = '';
 
           nextContent.forEach(content => {
 
             $nextContent += `<div  class="post-preview">
-                                <a href="/article/${content.id}">
+                                <a href="/article/${content.articleSeq}">
                                   <h2 class="post-title">${content.title}</h2>
                                 </a>
                                 <p class="post-meta">

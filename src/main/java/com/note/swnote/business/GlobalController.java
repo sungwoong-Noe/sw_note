@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class GlobalController {
 
     private final CategoryService categoryService;
-
-
     @ModelAttribute
     public void sidebarCategories(Model model) {
         model.addAttribute("sidebarCategories", categoryService.parentList());

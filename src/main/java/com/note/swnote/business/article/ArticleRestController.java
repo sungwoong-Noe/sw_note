@@ -4,7 +4,6 @@ import com.note.swnote.business.article.service.ArticleService;
 import com.note.swnote.domain.Article;
 import com.note.swnote.dto.request.article.ArticleRequest;
 import com.note.swnote.dto.response.article.ArticlePagingResponse;
-import com.note.swnote.dto.response.article.ArticleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -32,9 +31,9 @@ public class ArticleRestController {
     }
 
     @GetMapping("/article/next")
-    public Slice<Article> getArticleList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public ArticlePagingResponse getArticleList(@PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-        Slice<Article> response = articleService.getArticleList(pageable);
+        ArticlePagingResponse response = articleService.getArticleList(pageable);
 
         return response;
     }
