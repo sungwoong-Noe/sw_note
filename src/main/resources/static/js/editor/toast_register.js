@@ -37,7 +37,7 @@ document.querySelector('#parentCategory').addEventListener('change', (event) => 
     xhr.send();
 });
 
-class FormData {
+class ArticleFormData {
 
     constructor() {
         this.title = document.querySelector('#title').value;
@@ -64,8 +64,23 @@ class FormData {
 
 
 const uploadImage = (blob) => {
-    console.log(blob);
-    return "www."
+
+    let formData = new FormData();
+    formData.append("img", blob);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/s3/image", false);
+    xhr.setRequestHeader("contentType", "multipart/form-data");
+    xhr.send(formData);
+
+
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        return xhr.response;
+    } else {
+        alert("이미지가 정상적으로 업로드되지 못했습니다.");
+    }
+
+
 };
 
 const editor = new toastui.Editor({
@@ -76,14 +91,14 @@ const editor = new toastui.Editor({
     hooks:{
         addImageBlobHook: (blob, callback) => {
             let imageUrl = uploadImage(blob);
-            callback("asdasd", "첨부이미지");
+            callback(imageUrl, "첨부이미지");
         }
     }
 });
 
 document.querySelector('#btn_regist').addEventListener('click', () => {
 
-    const formData = new FormData();
+    const formData = new ArticleFormData();
 
     if (formData.valid() !== null) {
         alert(formData.valid());
