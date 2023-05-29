@@ -9,13 +9,19 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <meta charset="UTF-8">
   <title>Article List</title>
+
+  <style>
+    body > div.container-fluid > div > main {
+      overflow: auto;
+    }
+  </style>
 </head>
 
 <main class="col-9 py-md-3 pl-md-5 bd-content" role="main" layout:fragment="content">
 
   <h1> Article 페이지 </h1>
 
-  <div class="row gx-4 gx-lg-5 justify-content-center" style="padding-left: 20px">
+  <div class="row gx-4 gx-lg-5" style="padding-left: 20px">
     <div class="col-md-12 col-lg-8 col-xl-7">
 
       <th:block th:each="article: ${articleList.getArticleResponses()}">
@@ -107,7 +113,6 @@
 
         } else {
           console.error("getNextPage Error!");
-          // console.log('response', xhr.responseText);
         }
       };
 

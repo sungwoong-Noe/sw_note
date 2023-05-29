@@ -18,13 +18,9 @@ public class ArticlePagingResponse {
     private boolean first;
 
     private int number;
-
     private boolean last;
-
-
     private int numberOfElements;
     private List<ArticleResponse> articleResponses;
-
 
 
     public static ArticlePagingResponse create(Slice<Article> articleSlice) {

@@ -62,11 +62,23 @@ class FormData {
     }
 }
 
+
+const uploadImage = (blob) => {
+    console.log(blob);
+    return "www."
+};
+
 const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     previewStyle: 'tab',
     height: '500px',
-    initialValue: "내용을 입력해주세요"
+    initialValue: "내용을 입력해주세요",
+    hooks:{
+        addImageBlobHook: (blob, callback) => {
+            let imageUrl = uploadImage(blob);
+            callback("asdasd", "첨부이미지");
+        }
+    }
 });
 
 document.querySelector('#btn_regist').addEventListener('click', () => {
