@@ -6,6 +6,7 @@ import com.note.swnote.business.category.service.CategoryService;
 import com.note.swnote.domain.Article;
 import com.note.swnote.dto.request.article.ArticleRequest;
 import com.note.swnote.dto.request.category.CategoryRequest;
+import com.note.swnote.dto.response.article.ArticlePagingResponse;
 import com.note.swnote.dto.response.article.ArticleResponse;
 import com.note.swnote.dto.response.category.CategoryResponse;
 import com.note.swnote.exception.article.ArticleNotFound;
@@ -129,13 +130,13 @@ class ArticleServiceImplTest {
         Pageable page = PageRequest.of(0, 10);
 
         //when
-        Slice<Article> articleList = articleService.getArticleList(page);
+        ArticlePagingResponse articleList = articleService.getArticleList(page);
 
 
 
         //then
-        assertThat(10).isEqualTo(articleList.getSize());
-        assertThat(articleList.getContent().get(0).getTitle()).isEqualTo("제목0");
+        assertThat(10).isEqualTo(articleList.getArticleResponses().size());
+        assertThat(articleList.getArticleResponses().get(0).getTitle()).isEqualTo("제목0");
     }
 
 
