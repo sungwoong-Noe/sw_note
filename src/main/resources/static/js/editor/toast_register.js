@@ -79,8 +79,6 @@ const uploadImage = (blob) => {
     } else {
         alert("이미지가 정상적으로 업로드되지 못했습니다.");
     }
-
-
 };
 
 const editor = new toastui.Editor({
