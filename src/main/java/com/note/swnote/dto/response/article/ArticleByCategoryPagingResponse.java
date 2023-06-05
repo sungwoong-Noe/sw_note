@@ -2,7 +2,7 @@ package com.note.swnote.dto.response.article;
 
 
 import com.note.swnote.domain.Article;
-import lombok.Builder;
+import com.note.swnote.dto.response.category.ChildResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Slice;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter @Setter
-public class ArticlePagingResponse {
+public class ArticleByCategoryPagingResponse {
     private boolean hasNext;
     private boolean first;
     private int number;
@@ -19,20 +19,23 @@ public class ArticlePagingResponse {
     private int numberOfElements;
     private List<ArticleResponse> articleResponses;
 
+    private ChildResponse category;
 
-    public static ArticlePagingResponse create(Slice<Article> articleSlice) {
-        ArticlePagingResponse response = new ArticlePagingResponse(articleSlice);
+
+    public static ArticleByCategoryPagingResponse create(Slice<Article> articleSlice, ChildResponse category) {
+
+        ArticleByCategoryPagingResponse response = new ArticleByCategoryPagingResponse(articleSlice, category);
         return response;
     }
 
-    public ArticlePagingResponse(Slice<Article> articles) {
+    public ArticleByCategoryPagingResponse(Slice<Article> articles, ChildResponse category) {
 
         this.hasNext = articles.hasNext();
         this.numberOfElements = articles.getNumberOfElements();
         this.first = articles.isFirst();
         this.last = articles.isLast();
         this.number = articles.getNumber();
-
+        this.category = category;
 
         List<Article> articleList = articles.getContent();
         this.articleResponses = articleList.stream()

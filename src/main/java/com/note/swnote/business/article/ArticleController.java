@@ -2,6 +2,7 @@ package com.note.swnote.business.article;
 
 import com.note.swnote.business.article.service.ArticleService;
 import com.note.swnote.domain.Article;
+import com.note.swnote.dto.response.article.ArticleByCategoryPagingResponse;
 import com.note.swnote.dto.response.article.ArticlePagingResponse;
 import com.note.swnote.dto.response.article.ArticleResponse;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,18 @@ public class ArticleController {
 
         model.addAttribute("article", response);
         return "article/articleView";
+    }
+
+    @GetMapping("/article/category/{categorySeq}")
+    public String getArticleByCategory(
+            @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable Long categorySeq, Model model) {
+
+        ArticleByCategoryPagingResponse articleByCategory = articleService.getArticleByCategory(categorySeq, pageable);
+        model.addAttribute("articleList", articleByCategory);
+
+        model.addAttribute("category", articleByCategory.getCategory());
+
+        return "article/articleList";
     }
 }

@@ -19,7 +19,16 @@
 
 <main class="col-9 py-md-3 pl-md-5 bd-content" role="main" layout:fragment="content">
 
-  <h1> Article 페이지 </h1>
+  <th:block th:if="${category ne null}">
+      <h1 th:text="${category.getCategoryName()}"> </h1>
+  </th:block>
+
+  <th:block th:if="${categorySeq eq null}">
+    <h1> Article 페이지 </h1>
+  </th:block>
+
+
+
 
   <div class="row gx-4 gx-lg-5" style="padding-left: 20px">
     <div class="col-md-12 col-lg-8 col-xl-7">

@@ -4,8 +4,10 @@ import com.note.swnote.business.article.repository.ArticleRepository;
 import com.note.swnote.business.category.repository.CategoryRepository;
 import com.note.swnote.business.category.service.CategoryService;
 import com.note.swnote.domain.Article;
+import com.note.swnote.domain.Category;
 import com.note.swnote.dto.request.article.ArticleRequest;
 import com.note.swnote.dto.request.category.CategoryRequest;
+import com.note.swnote.dto.response.article.ArticleByCategoryPagingResponse;
 import com.note.swnote.dto.response.article.ArticlePagingResponse;
 import com.note.swnote.dto.response.article.ArticleResponse;
 import com.note.swnote.dto.response.category.CategoryResponse;
@@ -17,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -173,9 +175,54 @@ class ArticleServiceImplTest {
 
         //then
         assertThat(article.get().getCategory().getCategoryName()).isEqualTo(child.getCategoryName());
+    }
+
+
+    @Test
+    @DisplayName("카테고리별 게시글 조회")
+    void getArticleByCategory() {
+        //given
+        Long childCategoryId = this.createArticleByCategoryEx();
+        Pageable page = PageRequest.of(0, 10);
+
+        Category category = categoryRepository.findById(childCategoryId).get();
+
+        //then
+        ArticleByCategoryPagingResponse articleByCategory = articleService.getArticleByCategory(childCategoryId, page);
+
+        //when
+        assertThat(articleByCategory.getArticleResponses().size()).isEqualTo(5);
 
 
 
     }
 
+
+
+    @Transactional
+    Long createArticleByCategoryEx() {
+        //given
+        Category parent = Category.builder()
+                .categoryName("parent")
+                .build();
+        categoryRepository.save(parent);
+
+
+        Category child = Category.builder()
+                .categoryName("child")
+                .build();
+        child.setParentCategory(parent);
+
+        categoryRepository.save(child);
+
+        IntStream.range(0, 5).forEach(i -> {
+            Article article = Article.builder()
+                    .category(child)
+                    .title("article" + i)
+                    .content("content" + i)
+                    .build();
+            articleRepository.save(article);
+        });
+        return child.getId();
+    }
 }
