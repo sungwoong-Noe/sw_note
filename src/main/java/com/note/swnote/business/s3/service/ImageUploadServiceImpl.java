@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.note.swnote.dto.request.s3.ImageFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Value("${spring.servlet.multipart.max-request-size}")
+    private Long filePermitted;
+
     @Override
     public String imageUpload(MultipartFile imgRequest) {
 
@@ -37,9 +41,12 @@ public class ImageUploadServiceImpl implements ImageUploadService {
             amazonS3.putObject(new PutObjectRequest(bucket, imageFile.getStoredFileName(), inputStream, metadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("파일 업로드에 실패하였습니다.");
         }
+//        catch (FileSizeLimitExceededException e) {
+//            throw new FileSizeLimitExceededException("파일 용량이 100KB를 초과하였습니다.", file.getSize(), );
+//        }
 
         String imageUrl = amazonS3.getUrl(bucket, imageFile.getStoredFileName()).toString();
         log.info("imageUpload Success = {}", imageUrl);

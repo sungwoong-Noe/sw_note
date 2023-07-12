@@ -8,6 +8,7 @@ import com.note.swnote.exception.article.BlogException;
 import com.note.swnote.exception.cateogry.CategoryException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.FieldError;
@@ -38,6 +39,17 @@ public class ExceptionController {
             response.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
         }
 
+        return response;
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(FileSizeLimitExceededException.class)
+    public ErrorResponse fileSizeOver(FileSizeLimitExceededException e) {
+        ErrorResponse response = ErrorResponse.builder()
+                .code("500")
+                .message(e.getMessage())
+                .build();
         return response;
     }
 

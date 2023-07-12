@@ -76,8 +76,9 @@ const uploadImage = (blob) => {
 
     if (xhr.readyState === 4 && xhr.status === 200) {
         return xhr.response;
-    } else {
-        alert("이미지가 정상적으로 업로드되지 못했습니다.");
+    } else if(xhr.status === 500) {
+        return xhr.status;
+        console.log("이미지가 정상적으로 업로드되지 못했습니다.");
     }
 };
 
@@ -89,7 +90,11 @@ const editor = new toastui.Editor({
     hooks:{
         addImageBlobHook: (blob, callback) => {
             let imageUrl = uploadImage(blob);
-            callback(imageUrl, "첨부이미지");
+            if (imageUrl !== 500) {
+                callback(imageUrl, "첨부이미지");
+            } else {
+                alert("파일 크기가 너무 큽니다. 100KB 이하로 업로드해주세요");
+            }
         }
     }
 });
