@@ -1,6 +1,6 @@
 ### 로그인
 
-POST http://localhost:8081/auth/login
+POST http://localhost:8082/auth/login
 Content-Type: application/x-www-form-urlencoded
 
 username=test@naver.com&password=1234&remember=1
