@@ -39,7 +39,8 @@ spring:
     cache: false
 
   profiles:
-    active: aws
+    include:
+      - aws
 
 
 
