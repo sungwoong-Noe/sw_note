@@ -5,9 +5,6 @@ spring:
     username: root
     password: 1234
 
-  profiles:
-    default: dev
-    include: aws
 
   jpa:
     defer-datasource-initialization: true
@@ -24,6 +21,11 @@ spring:
         default-page-size: 10
   #        one-indexed-parameters: true
 
+  servlet:
+    multipart:
+      max-file-size: 100000
+      max-request-size: 1000000
+
   #  sql:
   #    init:
   #      mode: always
@@ -36,6 +38,8 @@ spring:
     suffix: .html
     cache: false
 
+  profiles:
+    active: aws
 
 
 
